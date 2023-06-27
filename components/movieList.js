@@ -13,7 +13,13 @@ import { useNavigation } from '@react-navigation/native'
 
 var { width, height } = Dimensions.get('window')
 
-export default function MovieList({ title, data, poster, movieName }) {
+export default function MovieList({
+  title,
+  data,
+  poster,
+  movieName,
+  hideSeeAll,
+}) {
   const navigation = useNavigation()
 
   return (
@@ -21,6 +27,7 @@ export default function MovieList({ title, data, poster, movieName }) {
       {/* Container for upcoming movies titles and see all button */}
       <View className='mx-4 flex-row justify-between item-center'>
         <Text className='text-white text-xl'>{title}</Text>
+        {/* if hideSeeAll is true, then don't show the see all button */}
         <TouchableOpacity>
           <Text style={styles.text} className='text-lg'>
             See all
@@ -47,7 +54,7 @@ export default function MovieList({ title, data, poster, movieName }) {
                   className='rounded-2xl'
                   style={{ width: width * 0.3, height: height * 0.22 }}
                 />
-                <Text className='text-neutral-300 ml-2'>
+                <Text className='text-neutral-300 text-center'>
                   {movieName.length > 15
                     ? movieName.slice(0, 15) + '...'
                     : movieName}

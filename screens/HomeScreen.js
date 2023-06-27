@@ -53,16 +53,16 @@ function HomeScreen() {
         <MovieList
           title='Upcoming'
           data={upcoming}
-          poster={require('../assets/creed.jpg')}
-          movieName={'Creed III'}
+          poster={require('../assets/john.jpg')}
+          movieName={'John Wick'}
         />
 
         {/* Upcoming Movies carousel */}
         <MovieList
           title='Top Rated'
           data={rated}
-          movieName={'John Wick: Chapter 4'}
-          poster={require('../assets/john.jpg')}
+          movieName={'Creed III'}
+          poster={require('../assets/creed.jpg')}
         />
       </ScrollView>
     </View>
