@@ -57,7 +57,7 @@ export default function MovieScreen() {
           <TouchableOpacity onPress={() => toggleFavorite(!isFavorite)}>
             <HeartIcon
               size='35'
-              color={isFavorite ? theme.background : 'white'}
+              color={isFavorite ? 'pink' : 'white'}
             />
           </TouchableOpacity>
         </SafeAreaView>

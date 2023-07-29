@@ -40,7 +40,7 @@ export default function MovieList({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingRight: 15 }}
+        contentContainerStyle={{ paddingHorizontal: 6 }}
       >
         {/* Now we need to map through the data and display the movie cards */}
         {data.map((item, index) => {
@@ -52,7 +52,7 @@ export default function MovieList({
               <View className='space-y-2 mx-1.5 mt-2'>
                 <Image
                   source={poster}
-                  className='rounded-2xl'
+                  className='rounded-xl'
                   style={{ width: width * 0.3, height: height * 0.22 }}
                 />
                 <Text className='text-neutral-300 text-center'>

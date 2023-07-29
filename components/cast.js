@@ -22,7 +22,7 @@ export default function Cast({ cast, navigation }) {
               >
                 <View className='rounded-full overflow-hidden h-20 w-20 items-center border-neutral-500'>
                   <Image
-                    source={require('../assets/tom.jpg')}
+                    source={require('../assets/tom2.jpeg')}
                     className='rounded-2xl h-24 w-20'
                   />
                 </View>
