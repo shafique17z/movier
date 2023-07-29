@@ -16,6 +16,7 @@ import { styles, theme } from '../theme'
 import { LinearGradient as Gradient } from 'expo-linear-gradient'
 import Cast from '../components/cast'
 import MovieList from '../components/movieList'
+import Loading from '../components/loading'
 
 const ios = Platform.OS == 'ios'
 const topMargin = ios ? '' : ' mt-3'
@@ -28,6 +29,7 @@ export default function MovieScreen() {
   const [cast, setCast] = useState([1, 2, 3, 4, 5])
   const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5])
   const [isFavorite, toggleFavorite] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     //call api to get movie details
@@ -55,34 +57,35 @@ export default function MovieScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => toggleFavorite(!isFavorite)}>
-            <HeartIcon
-              size='35'
-              color={isFavorite ? 'pink' : 'white'}
-            />
+            <HeartIcon size='35' color={isFavorite ? 'pink' : 'white'} />
           </TouchableOpacity>
         </SafeAreaView>
 
-        {/* Movie poster */}
-        <View>
-          <Image
-            source={require('../assets/poster.jpg')}
-            style={{
-              width,
-              height: height * 0.55,
-            }}
-          />
-          <Gradient
-            colors={['transparent', 'rgba(23,23,23,0.8)', 'rgba(23,23,23,1)']}
-            style={{
-              width,
-              height: height * 0.55,
-              position: 'absolute',
-              bottom: 0,
-            }}
-            start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 1 }}
-          />
-        </View>
+        {loading ? (
+          <Loading />
+        ) : (
+          /* Movie poster */
+          <View>
+            <Image
+              source={require('../assets/poster.jpg')}
+              style={{
+                width,
+                height: height * 0.55,
+              }}
+            />
+            <Gradient
+              colors={['transparent', 'rgba(23,23,23,0.8)', 'rgba(23,23,23,1)']}
+              style={{
+                width,
+                height: height * 0.55,
+                position: 'absolute',
+                bottom: 0,
+              }}
+              start={{ x: 0.5, y: 0 }}
+              end={{ x: 0.5, y: 1 }}
+            />
+          </View>
+        )}
       </View>
 
       {/* Movie details */}
