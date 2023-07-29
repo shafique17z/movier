@@ -19,14 +19,17 @@ import MovieList from '../components/movieList'
 
 //created this variable to identify what OS the user is on.
 const iOS = Platform.OS === 'ios'
+
 function HomeScreen() {
-  //created a variable to store the trending movies data
+
+  //created a variable to store the trending movies data (temporary)
   const [trending, setTrending] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
   const [upcoming, setUpcoming] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
   const [rated, setRated] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
   return (
     <View className='flex-1 bg-neutral-800'>
+
       {/* Search bar and logo */}
       <SafeAreaView className={iOS ? 'mb-2 mt-2' : 'mb-2 mt-2'}>
         <StatusBar style='light' />
@@ -44,8 +47,9 @@ function HomeScreen() {
       {/* Movie list */}
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 10 }}
+        contentContainerStyle={{ paddingBottom: 8 }}
       >
+
         {/* Trending Movies carousel */}
         <TrendingMovies data={trending} />
 
@@ -65,6 +69,7 @@ function HomeScreen() {
           poster={require('../assets/creed.jpg')}
         />
       </ScrollView>
+
     </View>
   )
 }

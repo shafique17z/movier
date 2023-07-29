@@ -25,14 +25,15 @@ export default function MovieList({
   return (
     <View className='mb-8 spacy-y-4'>
       {/* Container for upcoming movies titles and see all button */}
-      <View className='mx-4 flex-row justify-between item-center'>
-        <Text className='text-white text-xl'>{title}</Text>
-        {/* if hideSeeAll is true, then don't show the see all button */}
-        <TouchableOpacity>
-          <Text style={styles.text} className='text-lg'>
-            See all
-          </Text>
-        </TouchableOpacity>
+      <View className='mx-4 flex-row justify-between items-center'>
+        <Text className='text-white text-lg'>{title}</Text>
+        {!hideSeeAll && (
+          <TouchableOpacity>
+            <Text style={styles.text} className='text-lg'>
+              See All
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* now adding scroll view to show horizontal list of movies */}

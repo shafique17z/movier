@@ -27,7 +27,7 @@ export default function MovieScreen() {
   const navigation = useNavigation()
   const [cast, setCast] = useState([1, 2, 3, 4, 5])
   const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5])
-  const { isFavorite, toggleFavorite } = useState(false)
+  const [isFavorite, toggleFavorite] = useState(false)
 
   useEffect(() => {
     //call api to get movie details
@@ -35,11 +35,10 @@ export default function MovieScreen() {
 
   return (
     <ScrollView
-      contentContainerStyle={{ paddingBottom: 100 }}
       className='flex-1 bg-neutral-900'
+      contentContainerStyle={{ paddingBottom: 8 }}
     >
       {/* back button and movie poster */}
-
       <View className='w-full'>
         <SafeAreaView
           className={
@@ -62,6 +61,8 @@ export default function MovieScreen() {
             />
           </TouchableOpacity>
         </SafeAreaView>
+
+        {/* Movie poster */}
         <View>
           <Image
             source={require('../assets/poster.jpg')}
