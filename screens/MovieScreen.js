@@ -17,23 +17,53 @@ import { LinearGradient as Gradient } from 'expo-linear-gradient'
 import Cast from '../components/cast'
 import MovieList from '../components/movieList'
 import Loading from '../components/loading'
+import {
+  fallbackMoviePoster,
+  fetchMovieCredits,
+  fetchMovieDetails,
+  fetchSimilarMovies,
+  image500,
+} from '../api/moviedb'
 
 const ios = Platform.OS == 'ios'
 const topMargin = ios ? '' : ' mt-3'
 var { width, height } = Dimensions.get('window')
 
 export default function MovieScreen() {
-  let movieName = 'Spider-Man: Across the Spider-Verse'
   const { params: item } = useRoute()
   const navigation = useNavigation()
-  const [cast, setCast] = useState([1, 2, 3, 4, 5])
-  const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5])
+  const [cast, setCast] = useState([])
+  const [similarMovies, setSimilarMovies] = useState([])
   const [isFavorite, toggleFavorite] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [movie, setMovie] = useState({})
 
   useEffect(() => {
-    //call api to get movie details
+    // console.log('item id:', item.id)
+    setLoading(true)
+    getMovieDetails(item.id)
+    getMovieCredits(item.id)
+    getSimilarMovies(item.id)
   }, [item])
+
+  const getSimilarMovies = async (id) => {
+    const data = await fetchSimilarMovies(id)
+    // console.log('Similar movies:\n', data)
+    if (data && data.results) setSimilarMovies(data.results)
+  }
+
+  const getMovieDetails = async (id) => {
+    const data = await fetchMovieDetails(id)
+    // console.log(data)
+    setLoading(false)
+    if (data) setMovie(data)
+  }
+
+  const getMovieCredits = async (id) => {
+    const data = await fetchMovieCredits(id)
+    // console.log('Credits:\n', data)
+    if (data && data.cast) setCast(data.cast)
+  }
 
   return (
     <ScrollView
@@ -57,7 +87,7 @@ export default function MovieScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => toggleFavorite(!isFavorite)}>
-            <HeartIcon size='35' color={isFavorite ? 'pink' : 'white'} />
+            <HeartIcon size='35' color={isFavorite ? 'red' : 'white'} />
           </TouchableOpacity>
         </SafeAreaView>
 
@@ -67,7 +97,10 @@ export default function MovieScreen() {
           /* Movie poster */
           <View>
             <Image
-              source={require('../assets/poster.jpg')}
+              // source={require('../assets/5.jpg')}
+              source={{
+                uri: image500(movie?.poster_path) || fallbackMoviePoster,
+              }}
               style={{
                 width,
                 height: height * 0.55,
@@ -92,49 +125,58 @@ export default function MovieScreen() {
       <View style={{ marginTop: -(height * 0.09) }} className='space-y-3'>
         {/* Movie title */}
         <Text className='text-white text-center text-3xl font-bold tracking-wider'>
-          {movieName}
+          {movie?.title?.length > 20
+            ? movie?.title?.slice(0, 20) + '..'
+            : movie?.title}
         </Text>
         {/* Now some insights about movie like release date and cast wagera */}
-        <Text className='text-neutral-400 text-center font-semibold text-base'>
-          2023 ‧ RELEASED ‧ 2h 16m
-        </Text>
+        {movie?.id ? (
+          <Text className='text-neutral-400 text-center font-semibold text-base'>
+            {movie?.release_date?.split('-')[0]} ‧ {movie?.status} ‧{' '}
+            {movie?.runtime} mins
+          </Text>
+        ) : null}
 
         {/* genres */}
         <View className='flex-row justify-center mx-4 space-x-2'>
-          <Text className='text-neutral-400 text-center font-semibold text-base'>
-            Action ‧
-          </Text>
-          <Text className='text-neutral-400 text-center font-semibold text-base'>
-            Adventure ‧
+          {movie?.genres?.map((genre, index) => {
+            let showDot = index + 1 != movie.genres.length
+            return (
+              <Text
+                key={index}
+                className='text-neutral-400 text-center font-semibold text-base'
+              >
+                {' '}
+                {genre?.name} {showDot ? '•' : null}
+              </Text>
+            )
+          })}
+
+          {/* <Text className='text-neutral-400 text-center font-semibold text-base'>
+            Adventure 
           </Text>
           <Text className='text-neutral-400 text-center font-semibold text-base'>
             Sci-fi
-          </Text>
+          </Text> */}
         </View>
 
         {/* description */}
-        <Text className='text-neutral-400 mx-4 tracking-wide text-center'>
-          After reuniting with Gwen Stacy, Brooklyn's full-time, friendly
-          neighborhood Spider-Man is catapulted across the Multiverse, where he
-          encounters a team of Spider-People charged with protecting its very
-          existence. However, when the heroes clash on how to handle a new
-          threat, Miles finds himself pitted against the other Spiders. He must
-          soon redefine what it means to be a hero so he can save the people he
-          loves most.
+        <Text className='text-neutral-400 mx-4 tracking-wide'>
+          {movie?.overview}
         </Text>
       </View>
 
       {/* Cast */}
-      <Cast cast={cast} navigation={navigation} />
+      {cast.length > 0 && <Cast cast={cast} navigation={navigation} />}
 
       {/* Similar movies under movie screen using the movieList component */}
-      <MovieList
-        title='Similar Movies'
-        data={similarMovies}
-        hideSeelAll={true}
-        poster={require('../assets/vin.jpg')}
-        movieName={'Fast X'}
-      />
+      {similarMovies.length > 0 && (
+        <MovieList
+          title='Similar Movies'
+          data={similarMovies}
+          hideSeelAll={true}
+        />
+      )}
     </ScrollView>
   )
 }

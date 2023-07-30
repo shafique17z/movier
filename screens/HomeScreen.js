@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 //import the hero icons library
@@ -18,17 +18,46 @@ import TrendingMovies from '../components/trendingMovies'
 import MovieList from '../components/movieList'
 import { useNavigation } from '@react-navigation/native'
 import Loading from '../components/loading'
+import {
+  fetchTopRatedMovies,
+  fetchTrendingMovies,
+  fetchUpcomingMovies,
+} from '../api/moviedb'
 
 //created this variable to identify what OS the user is on.
 const iOS = Platform.OS === 'ios'
 
 function HomeScreen() {
   //created a variable to store the trending movies data (temporary)
-  const [trending, setTrending] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-  const [upcoming, setUpcoming] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-  const [rated, setRated] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-  const [loading, setLoading] = useState(false)
+  const [trending, setTrending] = useState([])
+  const [upcoming, setUpcoming] = useState([])
+  const [rated, setRated] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigation = useNavigation()
+
+  useEffect(() => {
+    getTrendingMovies()
+    getUpcomingMovies()
+    getTopRatedMovies()
+  }, [])
+
+  const getTrendingMovies = async () => {
+    const data = await fetchTrendingMovies()
+    // console.log('Get tredning movies data:\n', data)
+    if (data && data.results) setTrending(data.results)
+    setLoading(false)
+  }
+
+  const getUpcomingMovies = async () => {
+    const data = await fetchUpcomingMovies()
+    // console.log('Got upcoming movies data:\n', data)
+    if (data && data.results) setUpcoming(data.results)
+  }
+  const getTopRatedMovies = async () => {
+    const data = await fetchTopRatedMovies()
+    console.log('Got top rated movies data:\n', data)
+    if (data && data.results) setRated(data.results)
+  }
 
   return (
     <View className='flex-1 bg-neutral-800'>
@@ -55,23 +84,13 @@ function HomeScreen() {
           contentContainerStyle={{ paddingBottom: 8 }}
         >
           {/* Trending Movies carousel */}
-          <TrendingMovies data={trending} />
+          {trending.length > 0 && <TrendingMovies data={trending} />}
 
           {/* Upcoming Movies carousel */}
-          <MovieList
-            title='Upcoming'
-            data={upcoming}
-            poster={require('../assets/john.jpg')}
-            movieName={'John Wick'}
-          />
+          <MovieList title='Upcoming' data={upcoming} />
 
-          {/* Upcoming Movies carousel */}
-          <MovieList
-            title='Top Rated'
-            data={rated}
-            movieName={'Creed III'}
-            poster={require('../assets/creed.jpg')}
-          />
+          {/* Top Rated Movies carousel */}
+          <MovieList title='Top Rated (IMDb)' data={rated} />
         </ScrollView>
       )}
     </View>

@@ -10,16 +10,11 @@ import {
 import React from 'react'
 import { styles } from '../theme'
 import { useNavigation } from '@react-navigation/native'
+import { fallbackMoviePoster, image185 } from '../api/moviedb'
 
 var { width, height } = Dimensions.get('window')
 
-export default function MovieList({
-  title,
-  data,
-  poster,
-  movieName,
-  hideSeeAll,
-}) {
+export default function MovieList({ title, data, hideSeeAll }) {
   const navigation = useNavigation()
 
   return (
@@ -51,14 +46,17 @@ export default function MovieList({
             >
               <View className='space-y-2 mx-1.5 mt-2'>
                 <Image
-                  source={poster}
+                  // source={require('../assets/5.jpeg')}
+                  source={{
+                    uri: image185(item.poster_path) || fallbackMoviePoster,
+                  }}
                   className='rounded-xl'
                   style={{ width: width * 0.3, height: height * 0.22 }}
                 />
                 <Text className='text-neutral-300 text-center'>
-                  {movieName.length > 15
-                    ? movieName.slice(0, 15) + '...'
-                    : movieName}
+                  {item.title.length > 15
+                    ? item.title.slice(0, 15) + '...'
+                    : item.title}
                 </Text>
               </View>
             </TouchableWithoutFeedback>
