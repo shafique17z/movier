@@ -55,7 +55,7 @@ function HomeScreen() {
   }
   const getTopRatedMovies = async () => {
     const data = await fetchTopRatedMovies()
-    console.log('Got top rated movies data:\n', data)
+    // console.log('Got top rated movies data:\n', data)
     if (data && data.results) setRated(data.results)
   }
 
