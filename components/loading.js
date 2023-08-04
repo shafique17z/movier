@@ -1,4 +1,4 @@
-import { View, Text, Dimensions } from 'react-native'
+import { View, Dimensions } from 'react-native'
 import React from 'react'
 import * as Progress from 'react-native-progress'
 import { theme } from '../theme'
@@ -11,11 +11,7 @@ const Loading = () => {
       style={{ width, height }}
       className='absolute flex-row justify-center items-center'
     >
-      <Progress.CircleSnail
-        thickness={8}
-        size={100}
-        color={theme.background}
-      />
+      <Progress.CircleSnail thickness={8} size={100} color={theme.background} />
     </View>
   )
 }

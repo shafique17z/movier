@@ -85,7 +85,6 @@ const SearchScreen = () => {
                     <View className='space-y-3 mb-4'>
                       <Image
                         className='rounded-xl'
-                        // source={require('../assets/5.jpg')}
                         source={{
                           uri:
                             image185(item?.poster_path) || fallbackMoviePoster,

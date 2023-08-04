@@ -30,12 +30,13 @@ const personDetailsEndpoint = (id) =>
 const personMoviesEndpoint = (id) =>
   `${apiBaseUrl}/person/${id}/movie_credits?api_key=${apiKey}`
 
-// fallback images
+// default images when image is not available from api
 export const fallbackMoviePoster =
   'https://img.myloview.com/stickers/white-laptop-screen-with-hd-video-technology-icon-isolated-on-grey-background-abstract-circle-random-dots-vector-illustration-400-176057922.jpg'
 export const fallbackPersonImage =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmUiF-YGjavA63_Au8jQj7zxnFxS_Ay9xc6pxleMqCxH92SzeNSjBTwZ0l61E4B3KTS7o&usqp=CAU'
 
+// api call method
 const apiCall = async (endpoint, params) => {
   const options = {
     method: 'GET',
@@ -52,6 +53,7 @@ const apiCall = async (endpoint, params) => {
   }
 }
 
+// api calls for all of the getter methods and one query method
 export const fetchTrendingMovies = () => {
   return apiCall(trendingMoviesEndpoint)
 }
@@ -84,6 +86,7 @@ export const fetchPersonMovies = (id) => {
   return apiCall(personMoviesEndpoint(id))
 }
 
+//this is the query method for search
 export const searchMovies = (query) => {
   return apiCall(searchMoviesEndpoint, query)
 }

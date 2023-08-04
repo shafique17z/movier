@@ -12,7 +12,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { HeartIcon } from 'react-native-heroicons/solid'
-import { styles, theme } from '../theme'
+import { styles } from '../theme'
 import { LinearGradient as Gradient } from 'expo-linear-gradient'
 import Cast from '../components/cast'
 import MovieList from '../components/movieList'
@@ -151,13 +151,6 @@ export default function MovieScreen() {
               </Text>
             )
           })}
-
-          {/* <Text className='text-neutral-400 text-center font-semibold text-base'>
-            Adventure 
-          </Text>
-          <Text className='text-neutral-400 text-center font-semibold text-base'>
-            Sci-fi
-          </Text> */}
         </View>
 
         {/* description */}

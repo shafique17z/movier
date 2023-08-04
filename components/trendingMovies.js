@@ -42,7 +42,6 @@ const MovieCard = ({ item, handleClick }) => {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image
-        // source={require('../assets/new.jpeg')}
         source={{ uri: image500(item.poster_path) }}
         style={{ width: width * 0.6, height: height * 0.4 }}
         className='rounded-2xl'

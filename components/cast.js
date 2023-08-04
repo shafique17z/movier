@@ -1,14 +1,8 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import {
-  fallbackMoviePoster,
-  fallbackPersonImage,
-  image185,
-} from '../api/moviedb'
+import { fallbackPersonImage, image185 } from '../api/moviedb'
 
 export default function Cast({ cast, navigation }) {
-  let personName = 'Tom Hull'
-  let characterName = 'Peter Park'
   return (
     <View className='my-6'>
       <Text className='text-white text-lg mx-4 mb-5'>Top Cast</Text>

@@ -8,7 +8,6 @@ import {
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
-//import the hero icons library
 import {
   Bars3CenterLeftIcon,
   MagnifyingGlassIcon,

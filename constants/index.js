@@ -1,6 +1,6 @@
 export const apiKey = 'adad1a9a70c33797a16166a378a2421f'
 
-// this data was used for the development of the app
+// this data was used for the development of the app and is not used in the final version
 export const moviesData = [
   {
     id: 2,

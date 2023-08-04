@@ -49,7 +49,7 @@ const PersonScreen = () => {
 
   const getPersonMovies = async (id) => {
     const data = await fetchPersonMovies(id)
-    console.log('got Person Movie:\n', data)
+    //console.log('got Person Movie:\n', data)
     setLoading(false)
     if (data && data.cast) setPersonMovies(data.cast)
   }
