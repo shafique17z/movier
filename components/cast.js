@@ -2,6 +2,12 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { fallbackPersonImage, image185 } from '../api/moviedb'
 
+// Comments exhibition: Better Comments
+//! This is a critical comment
+//* This is a highlight comment
+//TODO This is a todo comment
+//? This is a question comment
+
 export default function Cast({ cast, navigation }) {
   return (
     <View className='my-6'>
