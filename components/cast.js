@@ -2,7 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { fallbackPersonImage, image185 } from '../api/moviedb'
 
-// Comments exhibition: Better Comments
+// Comments exhibition w/ Better Comments
 //! This is a critical comment
 //* This is a highlight comment
 //TODO This is a todo comment
